@@ -23,6 +23,9 @@ const getSearchEmployees = async (req, res, next) => {
 const getSearchEmployeeDetails = async (req, res, next) => {
   const data = req.body
   const employee_result = await employeeData.getSearchEmployeeDetails(data);
+  for (const item of employee_result) {
+    item.IS_ACTIVE = item.IS_ACTIVE ? 'ACTIVE' : 'IN ACTIVE'
+  }
   res.send(employee_result);
 }
 
@@ -47,9 +50,9 @@ const addEmployee = async (req, res, next) => {
 
 const updateEmployee = async (req, res, next) => {
   try {
-    const eventId = req.params.id;
+    const employeeId = req.params.id;
     const data = req.body;
-    const updated = await employeeData.updateEmployee(eventId, data);
+    const updated = await employeeData.updateEmployee(employeeId, data);
     res.send(updated);
   } catch (error) {
     res.status(400).send(error.message);
@@ -58,9 +61,9 @@ const updateEmployee = async (req, res, next) => {
 
 const deleteEmployee = async (req, res, next) => {
   try {
-    const eventId = req.params.id;
-    const deletedEvent = await employeeData.deleteEmployee(eventId);
-    res.send(deletedEvent);
+    const employeeId = req.params.id;
+    const deletedEmployee = await employeeData.deleteEmployee(employeeId);
+    res.send(deletedEmployee);
   } catch (error) {
     res.status(400).send(error.message);
   }

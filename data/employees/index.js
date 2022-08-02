@@ -8,7 +8,6 @@ const getEmployees = async () => {
     let request = new sql.Request(pool);
     const getEmp = await request.query("SELECT * FROM [UE database]..[vw_Employees] WHERE code = '8287' ")
     return getEmp.recordset
-
   } catch (error) {
     console.log(error.message);
   }
@@ -54,7 +53,7 @@ const getSearchEmployees = async (data, res) => {
                                           POS_DESC LIKE ${employee_position} AND
                                           EMP_CLASS_DESC LIKE ${employee_class} AND
                                           EMP_STATUS_DESC LIKE ${employee_status} AND
-                                          IS_ACTIVE LIKE ${isActive} ORDER BY LASTNAME DESC`;
+                                          IS_ACTIVE = '1' ORDER BY LASTNAME DESC`;
     console.log('res: '.empResult)
     return empResult.recordset
 
@@ -76,8 +75,6 @@ const getSearchEmployeeDetails = async (data, res) => {
   let isActive = data.isActive
 
   try {
-    let pool = await sql.connect(config.sql);
-    let request = new sql.Request(pool);
     lastname = `%${lastname}%`;
     firstname = `%${firstname}%`;
     middlename = `%${middlename}%`;
@@ -89,6 +86,8 @@ const getSearchEmployeeDetails = async (data, res) => {
     employee_status = `%${employee_status}%`;
     employee_class = `%${employee_class}%`;
     isActive = `%${isActive}%`;
+    let pool = await sql.connect(config.sql);
+    let request = new sql.Request(pool);
 
     const empDetails = await request.query`SELECT * FROM [UE database]..[vw_Employees] INNER JOIN 
                                          [UE database]..Education ON vw_Employees.CODE = Education.EmployeeCode 
@@ -102,7 +101,7 @@ const getSearchEmployeeDetails = async (data, res) => {
                                           POS_DESC LIKE ${employee_position} AND
                                           EMP_CLASS_DESC LIKE ${employee_class} AND
                                           EMP_STATUS_DESC LIKE ${employee_status} AND
-                                          IS_ACTIVE LIKE ${isActive} ORDER BY LASTNAME DESC `;
+                                          IS_ACTIVE = '1' ORDER BY LASTNAME DESC`;
     console.log('res: '.empDetails)
     return empDetails.recordset
 
