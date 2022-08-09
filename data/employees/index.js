@@ -118,11 +118,13 @@ const getSearchEmployeeDetails = async (data, res) => {
                                             Emp.RESIGNED,
                                             Emp.[SERVICE YEARS],
                                             Emp.TIN,
-                                            EMP.CIVIL_STATUS_DESC,
+                                            Emp.CIVIL_STATUS_DESC,
                                             Ed.DiplomaDegreeHonor
                                             FROM [UE database]..[vw_Employees] AS Emp INNER JOIN 
                                             [UE database]..Education AS Ed ON Emp.CODE = Ed.EmployeeCode 
-                                            WHERE Emp.LASTNAME LIKE ${lastname} AND 
+                                            WHERE 
+                                            Ed.EducType = 'G' AND
+                                            Emp.LASTNAME LIKE ${lastname} AND 
                                             Emp.FIRSTNAME LIKE ${firstname} AND 
                                             Emp.MIDDLENAME LIKE ${middlename} AND 
                                             Emp.CODE LIKE ${code} AND 
@@ -160,7 +162,7 @@ const getSearchEmployeeDetails = async (data, res) => {
                                             Emp.RESIGNED,
                                             Emp.[SERVICE YEARS],
                                             Emp.TIN,
-                                            EMP.CIVIL_STATUS_DESC,
+                                            Emp.CIVIL_STATUS_DESC,
                                             Ed.DiplomaDegreeHonor
                                             ORDER BY Emp.LASTNAME DESC`;
     console.log('res: '.empDetails)
