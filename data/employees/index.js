@@ -13,7 +13,7 @@ const getEmployees = async () => {
   }
 }
 
-const getSearchEmployees = async (data, res) => {
+const getSearchEmployees = async (data) => {
   try {
     let lastname = `%${data.lastname}%`;
     let firstname = `%${data.firstname}%`;
@@ -74,7 +74,7 @@ const getSearchEmployees = async (data, res) => {
     console.log(error.message);
   }
 }
-const getSearchEmployeeDetails = async (data, res) => {
+const getSearchEmployeeDetails = async (data) => {
   try {
     let lastname = `%${data.lastname}%`;
     let firstname = `%${data.firstname}%`;
