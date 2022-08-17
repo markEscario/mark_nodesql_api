@@ -4,6 +4,8 @@ const config = require('./config');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const employeeRoutes = require('./routes/employeeRoutes');
+const dropDownSelectRoutes = require('./routes/dropDownSelectRoutes');
+
 
 const app = express();
 
@@ -12,6 +14,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/api', employeeRoutes.routes);
+app.use('/api', dropDownSelectRoutes.routes);
 
 app.get("/", (req, res) => {
   res.json({ message: "The server is running" });
