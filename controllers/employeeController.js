@@ -32,7 +32,6 @@ const getSearchEmployeeDetails = async (req, res, next) => {
 const getEmployee = async (req, res, next) => {
   console.log('reqId: ', req.params.id)
   let bytes = CryptoJS.enc.Base64.parse(req.params.id.toString(), '@uerm!EmployeeCode');
-  // let employeeId = bytes.toString(CryptoJS.enc.Utf8)
   let employeeId = CryptoJS.enc.Utf8.stringify(bytes)
   const employee = await employeeData.getById(employeeId);
   res.send(employee);
